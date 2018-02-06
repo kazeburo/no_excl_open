@@ -1,3 +1,5 @@
+VERSION=0.0.1
+
 all: open_no_excl.so
 
 .PHONY: open_no_excl.so
@@ -7,3 +9,8 @@ open_no_excl.so:
 
 clean:
 	rm *.so
+
+tag:
+	git tag v${VERSION}
+	git push origin v${VERSION}
+	git push origin master
