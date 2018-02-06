@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <stdarg.h>
 
@@ -22,7 +23,11 @@ int open(const char *pathname, int flags, ...)
     mode = va_arg(ap, int);
     va_end(ap);
 
-    flags = flags & ~O_EXCL;
+    // O_RDWR and ! O_TRUNC
+    if ( (flags & O_RDWR) != 0 && (flags & O_TRUNC) == 0 ) {
+        flags = flags & ~O_EXCL;
+    }
+
     fd = func_open(pathname, flags, mode);
     return fd;
 }
@@ -41,7 +46,11 @@ int open64(const char *pathname, int flags, ...)
     mode = va_arg(ap, int);
     va_end(ap);
 
-    flags = flags & ~O_EXCL;
+    // O_RDWR and ! O_TRUNC
+    if ( (flags & O_RDWR) != 0 && (flags & O_TRUNC) == 0 ) {
+        flags = flags & ~O_EXCL;
+    }
+
     fd = func_open64(pathname, flags, mode);
     return fd;
 }
