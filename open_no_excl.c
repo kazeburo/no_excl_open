@@ -24,7 +24,7 @@ int open(const char *pathname, int flags, ...)
     va_end(ap);
 
     // O_RDWR and ! O_TRUNC
-    if ( (flags & O_RDWR) != 0 && (flags & O_TRUNC) == 0 ) {
+    if ( (flags & O_CREAT) != 0 && (flags & O_RDWR) != 0 && (flags & O_TRUNC) == 0 ) {
         flags = flags & ~O_EXCL;
     }
 
@@ -47,7 +47,7 @@ int open64(const char *pathname, int flags, ...)
     va_end(ap);
 
     // O_RDWR and ! O_TRUNC
-    if ( (flags & O_RDWR) != 0 && (flags & O_TRUNC) == 0 ) {
+    if ( (flags & O_CREAT) != 0 && (flags & O_RDWR) != 0 && (flags & O_TRUNC) == 0 ) {
         flags = flags & ~O_EXCL;
     }
 
